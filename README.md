@@ -125,11 +125,18 @@ yt-downloader/
 
 ## Environment Variables
 
-Create a `.env` file in the server directory:
+Create a `.env` file in the server directory (see `server/.env.example`):
 
-```
+```bash
 PORT=5000
+
+# Optional but recommended: YouTube authentication
+# See SETUP.md for detailed instructions on how to get these values
+# YOUTUBE_COOKIES='[{"name":"cookie1","value":"value1"}]'
+# YOUTUBE_OAUTH2_TOKENS='{"access_token":"token","refresh_token":"token"}'
 ```
+
+**Important:** If you encounter "Failed to fetch video information" errors, you'll need to configure authentication. See [SETUP.md](SETUP.md) for instructions.
 
 ## Important Notes
 
@@ -139,9 +146,17 @@ PORT=5000
 
 ## Troubleshooting
 
+### "Failed to fetch video information" Error
+**This is the most common issue!** YouTube has bot protection that may block requests without proper authentication.
+
+**Solution:** Configure YouTube cookies or OAuth2 tokens. See [SETUP.md](SETUP.md) for detailed instructions.
+
+The server now provides better error messages. Check the server console logs for specific details about why a request failed.
+
 ### Videos not downloading
 - Ensure the YouTube URL is valid
 - Some videos may be restricted or age-gated
+- **Authentication required:** See [SETUP.md](SETUP.md) for cookie/OAuth configuration
 - Check if ytdl-core needs updating: `npm update @distube/ytdl-core`
 
 ### CORS errors
